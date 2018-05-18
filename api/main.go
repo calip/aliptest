@@ -444,7 +444,15 @@ func InitServer() {
 }
 
 func DatabseInit(config Config) Repository {
-	session, err := mgo.Dial(config.Server)
+	info := &mgo.DialInfo{
+        Addrs:    []string{config.Server},
+        Timeout:  60 * time.Second,
+        Database: config.Database,
+        Username: config.Username,
+        Password: config.Password,
+	}
+	
+	session, err := mgo.DialWithInfo(info)
 	if err != nil {
 		log.Fatal(err)
 		panic(err)

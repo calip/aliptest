@@ -1,3 +1,5 @@
-server="us1xug7wh1ntvij:K3tXW2mieEIGjUKHRLsQ@bivhbqxwddmrprk-mongodb.services.clever-cloud.com"
+server="bivhbqxwddmrprk-mongodb.services.clever-cloud.com"
 database="bivhbqxwddmrprk"
+username="us1xug7wh1ntvij"
+password="K3tXW2mieEIGjUKHRLsQ"
 port="8080"

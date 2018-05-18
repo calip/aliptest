@@ -9,6 +9,8 @@ import (
 type Config struct {
 	Server   string
 	Database string
+	Username string
+	Password string
 	Port string
 }
 
