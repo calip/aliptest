@@ -1,3 +1,3 @@
-server="localhost"
-database="movies_db"
-port="8999"
+server="us1xug7wh1ntvij:K3tXW2mieEIGjUKHRLsQ@bivhbqxwddmrprk-mongodb.services.clever-cloud.com"
+database="bivhbqxwddmrprk"
+port="8080"
