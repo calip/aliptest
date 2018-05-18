@@ -1,7 +1,7 @@
 package api
 
 import (
-	. "../models"
+	. "models"
 	"crypto/sha256"
 	"fmt"
 	"gopkg.in/mgo.v2/bson"
