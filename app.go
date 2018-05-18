@@ -142,7 +142,7 @@
 package main
 
 import (
-	"test/api"
+	"./api"
 )
 
 func main() {

@@ -2,7 +2,7 @@ package api
 
 import (
 	log "github.com/Sirupsen/logrus"
-	. "test/models"
+	. "../models"
 	"gopkg.in/mgo.v2/bson"
 )
 
