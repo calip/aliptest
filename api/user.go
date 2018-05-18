@@ -60,3 +60,16 @@ func createToken(email string) (string, error) {
 
 	return tokenString, nil
 }
+
+func UserFindAll(r Repository) ([]User, error) {
+	collection := r.DB(DB_NAME).C("users")
+	var users []User
+	err := collection.Find(bson.M{"type": "student"}).All(&users)
+	return users, err
+}
+
+func UserFindById(id string, r Repository) (User, error) {
+	var user User
+	err := r.DB(DB_NAME).C("users").FindId(bson.ObjectIdHex(id)).One(&user)
+	return user, err
+}

@@ -1,0 +1,1 @@
+web: test cfehome.wsgi --log-file -

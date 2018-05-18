@@ -320,6 +320,48 @@ func (a *Api) DeleteQuestionsEndPoint(w http.ResponseWriter, r *http.Request) {
 	respondWithJson(w, http.StatusCreated, params["id"] + " deleted")
 }
 
+func (a *Api) AllUsersEndPoint(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("token")
+	if err != nil {
+		respondWithError(w, http.StatusUnauthorized, "No Auth ")
+		return
+	}
+	authorization := cookie.Value
+	if !IsAuthorized(authorization) {
+		respondWithError(w, http.StatusUnauthorized, "No Auth ")
+		return
+	}
+
+	users, err := UserFindAll(a.Repository)
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJson(w, http.StatusOK, users)
+}
+
+func (a *Api) FindUserEndpoint(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("token")
+	if err != nil {
+		respondWithError(w, http.StatusUnauthorized, "No Auth ")
+		return
+	}
+	authorization := cookie.Value
+	if !IsAuthorized(authorization) {
+		respondWithError(w, http.StatusUnauthorized, "No Auth ")
+		return
+	}
+
+	params := mux.Vars(r)
+	user, err := UserFindById(params["id"], a.Repository)
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid question ID")
+		return
+	}
+	respondWithJson(w, http.StatusOK, user)
+}
+
+
 func IsAuthorized(authorization string) bool {
 	if len(authorization) == 0 {
 		return false
@@ -363,6 +405,9 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func (app *Api) ConfigureRoutes(router *mux.Router) {
+	/* test end point */
+	router.HandleFunc("/users", app.AllUsersEndPoint).Methods("get")
+	router.HandleFunc("/users/{id}", app.FindUserEndpoint).Methods("GET")
 	/* test end point */
 	router.HandleFunc("/tests", app.AllTestEndPoint).Methods("get")
 	router.HandleFunc("/tests/{id}", app.FindTestEndpoint).Methods("GET")
